@@ -122,15 +122,15 @@ class MusicFinder {
 }
 
 class Song {
-  late int id;
+  int? id;
   late String artist;
   late String title;
   late String album;
-  late int albumId;
-  late int duration;
-  late String uri;
-  late String albumArt;
-  late int trackId;
+  int? albumId;
+  int? duration;
+  String? uri;
+  String? albumArt;
+  int? trackId;
 
   Song(this.id, this.artist, this.title, this.album, this.albumId,
       this.duration, this.uri, this.albumArt, this.trackId);
