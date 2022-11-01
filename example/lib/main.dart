@@ -18,12 +18,12 @@ class AudioApp extends StatefulWidget {
 }
 
 class _AudioAppState extends State<AudioApp> {
-  Duration duration;
-  Duration position;
+  Duration? duration;
+  Duration? position;
 
-  MusicFinder audioPlayer;
+  late MusicFinder audioPlayer;
 
-  String localFilePath;
+  String? localFilePath;
 
   PlayerState playerState = PlayerState.stopped;
 
@@ -91,7 +91,7 @@ class _AudioAppState extends State<AudioApp> {
   }
 
   Future _playLocal() async {
-    final result = await audioPlayer.play(localFilePath, isLocal: true);
+    final result = await audioPlayer.play(localFilePath!, isLocal: true);
     if (result == 1) setState(() => playerState = PlayerState.playing);
   }
 
@@ -150,18 +150,18 @@ class _AudioAppState extends State<AudioApp> {
                   children: [
                     new Material(child: _buildPlayer()),
                     localFilePath != null
-                        ? new Text(localFilePath)
+                        ? new Text(localFilePath!)
                         : new Container(),
                     new Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: new Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            new RaisedButton(
+                            new ElevatedButton(
                               onPressed: () => {},
                               child: new Text('Download'),
                             ),
-                            new RaisedButton(
+                            new ElevatedButton(
                               onPressed: () => _playLocal(),
                               child: new Text('play local'),
                             ),
@@ -194,11 +194,11 @@ class _AudioAppState extends State<AudioApp> {
         duration == null
             ? new Container()
             : new Slider(
-                value: position?.inMilliseconds?.toDouble() ?? 0,
+                value: position?.inMilliseconds.toDouble() ?? 0,
                 onChanged: (double value) =>
                     audioPlayer.seek((value / 1000).roundToDouble()),
                 min: 0.0,
-                max: duration.inMilliseconds.toDouble()),
+                max: duration!.inMilliseconds.toDouble()),
         new Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
@@ -220,9 +220,9 @@ class _AudioAppState extends State<AudioApp> {
                     value: 1.0,
                     valueColor: new AlwaysStoppedAnimation(Colors.grey[300])),
                 new CircularProgressIndicator(
-                  value: position != null && position.inMilliseconds > 0
-                      ? (position?.inMilliseconds?.toDouble() ?? 0.0) /
-                          (duration?.inMilliseconds?.toDouble() ?? 0.0)
+                  value: position != null && position!.inMilliseconds > 0
+                      ? (position?.inMilliseconds.toDouble() ?? 0.0) /
+                          (duration?.inMilliseconds.toDouble() ?? 0.0)
                       : 0.0,
                   valueColor: new AlwaysStoppedAnimation(Colors.cyan),
                   backgroundColor: Colors.yellow,

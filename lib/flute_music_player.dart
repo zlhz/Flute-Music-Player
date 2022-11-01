@@ -11,11 +11,11 @@ class MusicFinder {
   bool _handlePermissions = true;
   bool _executeAfterPermissionGranted = true;
 
-  TimeChangeHandler durationHandler;
-  TimeChangeHandler positionHandler;
-  VoidCallback startHandler;
-  VoidCallback completionHandler;
-  ErrorHandler errorHandler;
+  late TimeChangeHandler durationHandler;
+  late TimeChangeHandler positionHandler;
+  late VoidCallback startHandler;
+  late VoidCallback completionHandler;
+  late ErrorHandler errorHandler;
 
   MusicFinder() {
     _channel.setMethodCallHandler(platformCallHandler);
@@ -66,7 +66,7 @@ class MusicFinder {
     return this;
   }
 
-  static Future<String> get platformVersion =>
+  static Future get platformVersion =>
       _channel.invokeMethod('getPlatformVersion');
 
   static Future<dynamic> allSongs() async {
@@ -122,15 +122,15 @@ class MusicFinder {
 }
 
 class Song {
-  int id;
-  String artist;
-  String title;
-  String album;
-  int albumId;
-  int duration;
-  String uri;
-  String albumArt;
-  int trackId;
+  late int id;
+  late String artist;
+  late String title;
+  late String album;
+  late int albumId;
+  late int duration;
+  late String uri;
+  late String albumArt;
+  late int trackId;
 
   Song(this.id, this.artist, this.title, this.album, this.albumId,
       this.duration, this.uri, this.albumArt, this.trackId);
